@@ -3,7 +3,6 @@ package com.tafe.mcintosh.openweather;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Typeface;
-import android.icu.util.Calendar;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,11 +10,12 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Date;
@@ -41,7 +41,7 @@ public class WeatherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        weatherFont = Typeface.createFromAsset(getAssets(), "fonts/weather.ttf");
+//        weatherFont = Typeface.createFromAsset(getAssets(), "fonts/weather.ttf");
         updateWeatherData(new CityPreference(this).getCity());
 
         cityField = (TextView) findViewById(R.id.city_field);
@@ -49,7 +49,8 @@ public class WeatherActivity extends AppCompatActivity {
         detailsField = (TextView) findViewById(R.id.details_field);
         currentTemperatureField = (TextView) findViewById(R.id.current_temperature_field);
         weatherIcon = (TextView) findViewById(R.id.weather_icon);
-        weatherIcon.setTypeface(weatherFont);
+//        weatherIcon.setTypeface(weatherFont);
+
 
 
         setContentView(R.layout.activity_weather);
@@ -109,21 +110,25 @@ public class WeatherActivity extends AppCompatActivity {
         }.start();
     }
 
-    private void renderWeather(JSONObject json){
+    private void renderWeather(JSONObject json) {
         try {
+            Log.e("json", json.getJSONObject("sys").toString());
             cityField.setText(json.getString("name").toUpperCase(Locale.US) +
                     ", " +
                     json.getJSONObject("sys").getString("country"));
 
             JSONObject details = json.getJSONArray("weather").getJSONObject(0);
             JSONObject main = json.getJSONObject("main");
-            detailsField.setText(
-                    details.getString("description").toUpperCase(Locale.US) +
-                            "\n" + "Humidity: " + main.getString("humidity") + "%" +
-                            "\n" + "Pressure: " + main.getString("pressure") + " hPa");
+//            detailsField.setText(
+//                    details.getString("description").toUpperCase(Locale.US) +
+//                            "\n" + "Humidity: " + main.getString("humidity") + "%" +
+//                            "\n" + "Pressure: " + main.getString("pressure") + " hPa");
 
-            currentTemperatureField.setText(
-                    String.format("%.2f", main.getDouble("temp"))+ " ℃");
+//            currentTemperatureField.setText(
+//                    String.format("%.2f", main.getDouble("temp"))+ " ℃");
+                    //TODO: Find Log output of main
+                    //http://api.openweathermap.org/data/2.5/weather?q=sydney&units=metric&appid=9f5bae41fceccaf4ff79849fb5455faf
+                    Log.e("json1", json.getJSONObject("main").toString());
 
             DateFormat df = DateFormat.getDateTimeInstance();
             String updatedOn = df.format(new Date(json.getLong("dt")*1000));
