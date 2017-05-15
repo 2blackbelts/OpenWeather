@@ -26,11 +26,11 @@ public class WeatherActivity extends AppCompatActivity {
 
     Typeface weatherFont;
 
-    TextView cityField;
-    TextView updatedField;
-    TextView detailsField;
-    TextView currentTemperatureField;
-    TextView weatherIcon;
+    private TextView cityField;
+    private TextView updatedField;
+    private TextView detailsField;
+    private TextView currentTemperatureField;
+    private TextView weatherIcon;
 
     Handler handler;
 
@@ -41,19 +41,21 @@ public class WeatherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_weather);
 //        weatherFont = Typeface.createFromAsset(getAssets(), "fonts/weather.ttf");
         updateWeatherData(new CityPreference(this).getCity());
-
         cityField = (TextView) findViewById(R.id.city_field);
         updatedField = (TextView) findViewById(R.id.updated_field);
         detailsField = (TextView) findViewById(R.id.details_field);
         currentTemperatureField = (TextView) findViewById(R.id.current_temperature_field);
         weatherIcon = (TextView) findViewById(R.id.weather_icon);
+
+
 //        weatherIcon.setTypeface(weatherFont);
 
 
 
-        setContentView(R.layout.activity_weather);
+
     }
 
     @Override
@@ -113,12 +115,15 @@ public class WeatherActivity extends AppCompatActivity {
     private void renderWeather(JSONObject json) {
         try {
             Log.e("json", json.getJSONObject("sys").toString());
-            cityField.setText(json.getString("name").toUpperCase(Locale.US) +
-                    ", " +
-                    json.getJSONObject("sys").getString("country"));
+            Log.e("json", json.getJSONObject("main").getString("temp"));
+            currentTemperatureField.setText(json.getJSONObject("main").getString("temp")+" degrees");
+//            cityField.setText(json.getString("name").toUpperCase(Locale.US) +
+//                    ", " +
+//                    json.getJSONObject("sys").getString("country"));
+//
+//            JSONObject details = json.getJSONArray("weather").getJSONObject(0);
+//            JSONObject main = json.getJSONObject("main");
 
-            JSONObject details = json.getJSONArray("weather").getJSONObject(0);
-            JSONObject main = json.getJSONObject("main");
 //            detailsField.setText(
 //                    details.getString("description").toUpperCase(Locale.US) +
 //                            "\n" + "Humidity: " + main.getString("humidity") + "%" +
@@ -128,18 +133,18 @@ public class WeatherActivity extends AppCompatActivity {
 //                    String.format("%.2f", main.getDouble("temp"))+ " ℃");
                     //TODO: Find Log output of main
                     //http://api.openweathermap.org/data/2.5/weather?q=sydney&units=metric&appid=9f5bae41fceccaf4ff79849fb5455faf
-                    Log.e("json1", json.getJSONObject("main").toString());
+//                    Log.e("json", json.getJSONObject("main").getString("temp"));
 
-            DateFormat df = DateFormat.getDateTimeInstance();
-            String updatedOn = df.format(new Date(json.getLong("dt")*1000));
-            updatedField.setText("Last update: " + updatedOn);
+//            DateFormat df = DateFormat.getDateTimeInstance();
+//            String updatedOn = df.format(new Date(json.getLong("dt")*1000));
+//            updatedField.setText("Last update: " + updatedOn);
 
-            setWeatherIcon(details.getInt("id"),
-                    json.getJSONObject("sys").getLong("sunrise") * 1000,
-                    json.getJSONObject("sys").getLong("sunset") * 1000);
+//            setWeatherIcon(details.getInt("id"),
+//                    json.getJSONObject("sys").getLong("sunrise") * 1000,
+//                    json.getJSONObject("sys").getLong("sunset") * 1000);
 
         }catch(Exception e){
-            Log.e("SimpleWeather", "One or more fields not found in the JSON data");
+            Log.e("SimpleWeather", "One or more fields not found in the JSON data" + e);
         }
     }
 
