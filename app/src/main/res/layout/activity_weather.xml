@@ -22,7 +22,9 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:text="city_field"
+            android:layout_marginTop="5dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/textLight"
             />
         <TextView
             android:id="@+id/updated_field"
@@ -31,7 +33,9 @@
             android:layout_below="@+id/city_field"
             android:layout_centerHorizontal="true"
             android:text="updated_field"
+            android:layout_marginTop="5dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/textLight"
             />
 
         <TextView
@@ -42,17 +46,8 @@
             android:layout_centerVertical="true"
             android:text="icon"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="70sp" />
-
-        <TextView
-            android:id="@+id/current_temperature_field"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="40sp"
-            android:text="current_temp"/>
+            android:textSize="90sp"
+            android:textColor="@color/textLight"/>
 
         <TextView
             android:id="@+id/details_field"
@@ -61,8 +56,23 @@
             android:layout_below="@+id/weather_icon"
             android:layout_centerHorizontal="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:gravity="center_horizontal"
             android:text="details"
+            android:textColor="@color/textLight"
             />
+
+        <TextView
+            android:id="@+id/current_temperature_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="40sp"
+            android:text="current_temp"
+            android:layout_below="@id/details_field"
+            android:layout_marginTop="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/textLight"/>
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

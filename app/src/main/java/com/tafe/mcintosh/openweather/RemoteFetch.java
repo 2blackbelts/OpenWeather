@@ -17,6 +17,9 @@ public class RemoteFetch {
     private static final String OPEN_WEATHER_MAP_API =
             "http://api.openweathermap.org/data/2.5/weather?q=%s&units=metric";
 
+//    URL string version of the same request
+//    http://api.openweathermap.org/data/2.5/weather?q=sydney&units=metric&appid=9f5bae41fceccaf4ff79849fb5455faf
+
     public static JSONObject getJSON(Context context, String city){
         try {
             URL url = new URL(String.format(OPEN_WEATHER_MAP_API, city));
